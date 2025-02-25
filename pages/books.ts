@@ -1,6 +1,7 @@
 import Book from '../models/book';
 import Author from '../models/author';
 import express from 'express';
+import * as BookController from "../controllers/book-controller";
 
 const router = express.Router();
 
@@ -29,5 +30,8 @@ router.get('/', async (_, res) => {
     res.send('No books found');
   }
 });
+
+
+router.get('/book_dtls/:id', BookController.getBookDetails);
 
 export default router;
