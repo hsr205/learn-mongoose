@@ -5,9 +5,7 @@ import BookInstanceSchema from "../models/bookinstance";
 
 export const getBookDetails: RequestHandler = async (request, response, next) => {
 
-
     const bookId = request.params.id;
-
 
     try {
         if (!isValidObjectId(bookId)) {
