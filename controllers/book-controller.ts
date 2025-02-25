@@ -15,13 +15,16 @@ export const getBookDetails: RequestHandler = async (request, response, next) =>
         if (!isValidObjectId(bookId)) {
             throw createHttpError(400, `Invalid question id provided`);
         }
+        // // TODO: Use the following as basic queries to see the document structure for both BookSchema and BookInstanceSchema
+        // const allBooks = await BookSchema.find({}, "title author").populate("author");
+        // const allBookInstances = await BookInstanceSchema.find({}, "imprint status").populate("book");
 
-        const allBooks = await BookSchema.find({}).populate("author");
-        const allBookInstances = await BookInstanceSchema.find({}).populate("book");
+        const allBooks = await BookSchema.findById(bookId, "title author").populate('books');
 
-        // const allQuestions = await QuestionModel.find().populate("answers").exec();
-        // const question = allQuestions.find((question) => question.id === questionId);
-        //
+        // TODO: The following query will need to change to find the specific book ID with the BookInstanceSchema
+        //       This should create a join making it possible to get the fields "imprint" and "status" from the BookInstanceSchema
+        const allBookInstances = await BookInstanceSchema.find({}, "imprint status").populate("book");
+
         // if (!question) {
         //     throw createHttpError(404, `Question not found`);
         // }
